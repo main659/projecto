@@ -12,10 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -25,16 +22,12 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Grant execute permission for gradlew
-      run: chmod +x neo_workspace/TestDevOps/gradlew
+      run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./neo_workspace/TestDevOps/gradlew build
-    - uses: mr-smithers-excellent/docker-build-push@v5
-    - name: Build & push Docker image
+      run: ./gradlew build
+      uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: skybreaker/hello
-        tags: v1, latest
-        registry: registry-url.io
-        dockerfile: Dockerfile.ci
+        registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-
