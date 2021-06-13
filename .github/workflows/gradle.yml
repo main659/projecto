@@ -28,7 +28,7 @@ jobs:
     - name: Hello World
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: skybreaker/hello
+        image: skybreaker/hello:latest
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
