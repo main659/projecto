@@ -28,15 +28,13 @@ jobs:
       run: chmod +x neo_workspace/TestDevOps/gradlew
     - name: Build with Gradle
       run: ./neo_workspace/TestDevOps/gradlew build
-    - name: Build and Push Docker Image
-      uses: addnab/docker-run-action@v3
+    - uses: mr-smithers-excellent/docker-build-push@v5
+    - name: Build & push Docker image
       with:
+        image: skybreaker/hello
+        tags: v1, latest
+        registry: registry-url.io
+        dockerfile: Dockerfile.ci
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        registry: gcr.io
-        image: private-image:latest
-        options: -v ${{ github.workspace }}:/work -e ABC=123
-        run: |
-          echo "Running Script"
-          /work/run-script
 
