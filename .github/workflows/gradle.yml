@@ -30,5 +30,6 @@ jobs:
       with:
         image: skybreaker/hello
         registry: docker.io
+        tags: hello
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
